@@ -404,7 +404,6 @@
       <p>Ручная и машинная вышивка любой сложности. Эмблемы, шевроны, логотипы для формы, спортивной одежды и подарков. Аккуратно, качественно и в срок.</p>
       <div class="hero-btns">
         <a href="#steps" class="btn">Заказать вышивку</a>
-        <a href="#gallery" class="btn btn-outline">Смотреть работы</a>
       </div>
     </div>
     <img class="hero-img" src="https://images.unsplash.com/photo-1595859702997-8c1f6c2e0f7e?w=800" alt="Вышивка эмблем">
@@ -560,20 +559,13 @@
     <p class="section-sub">Что говорят те, кто уже заказывал</p>
     <div class="reviews-grid">
       <div class="review">
-        <p>«Заказывали эмблемы для спортивной команды. Всё сделано аккуратно и раньше срока. Очень довольны!»</p>
-        <div class="review-author">Анна К.</div>
-        <div class="review-role">Капитан команды</div>
-      </div>
-      <div class="review">
-        <p>«Логотип компании вышит идеально, даже мелкие детали читаются. Будем заказывать ещё!»</p>
-        <div class="review-author">Дмитрий С.</div>
-        <div class="review-role">Директор компании</div>
-      </div>
-      <div class="review">
         <p>«Заказывала именные полотенца в подарок. Получилось очень красиво и душевно. Спасибо!»</p>
         <div class="review-author">Мария В.</div>
         <div class="review-role">Частный клиент</div>
       </div>
+    </div>
+    <div style="text-align: center; margin-top: 50px;">
+      <button type="button" class="btn-green" onclick="openReviewModal()">Оставить отзыв</button>
     </div>
   </div>
 </section>
@@ -629,6 +621,19 @@
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeModal();
   });
+
+  // Модальное окно отзыва
+  function openReviewModal() {
+    document.getElementById('reviewModalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeReviewModal() {
+    document.getElementById('reviewModalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeReviewModal();
+  });
 </script>
 <!-- МОДАЛЬНОЕ ОКНО С ФОРМОЙ -->
 <div class="modal-overlay" id="modalOverlay" onclick="if(event.target === this) closeModal()">
@@ -643,6 +648,22 @@
       <label>Что нужно вышить?</label>
       <textarea name="message" required placeholder="Опишите задачу: что, на чём, размер, количество"></textarea>
       <button type="submit" class="btn-green" style="width: 100%;">Отправить заявку</button>
+    </form>
+  </div>
+</div>
+<!-- МОДАЛЬНОЕ ОКНО ДЛЯ ОТЗЫВА -->
+<div class="modal-overlay" id="reviewModalOverlay" onclick="if(event.target === this) closeReviewModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeReviewModal()" aria-label="Закрыть">&times;</button>
+    <h3>Оставить отзыв</h3>
+    <form action="https://formspree.io/f/mjygapvo" method="POST">
+      <label>Ваше имя</label>
+      <input type="text" name="name" required placeholder="Как к вам обращаться">
+      <label>Ваш отзыв</label>
+      <textarea name="review" required placeholder="Расскажите, что вам понравилось, что заказывали" style="min-height: 120px;"></textarea>
+      <label>Контакт для связи (необязательно)</label>
+      <input type="text" name="contact" placeholder="Телефон или Email — если хотите, чтобы с вами связались">
+      <button type="submit" class="btn-green" style="width: 100%;">Отправить отзыв</button>
     </form>
   </div>
 </div>
