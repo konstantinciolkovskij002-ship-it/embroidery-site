@@ -514,15 +514,15 @@
       <h2>Свяжитесь со мной</h2>
       <p>Оставьте заявку — я свяжусь с вами в течение дня, обсудим детали и рассчитаю стоимость.</p>
       <div class="contact-line"><span class="ic">📞</span><a href="tel:+79118062717">+7 (911) 806-27-17</a></div>
-      <div class="contact-line"><span class="ic">✉️</span><a href="mailto:info@example.com">info@example.com</a></div>
+      <div class="contact-line"><span class="ic">✉️</span><a href="mailto:888.89@mail.ru">888.89@mail.ru</a></div>
     </div>
-    <form onsubmit="event.preventDefault(); alert('Спасибо! Заявка отправлена. Я свяжусь с вами.'); this.reset();">
+    <form action="https://formspree.io/f/mzedjjyp" method="POST">
       <label>Ваше имя</label>
-      <input type="text" required placeholder="Как к вам обращаться">
+      <input type="text" name="name" required placeholder="Как к вам обращаться">
       <label>Телефон или Email</label>
-      <input type="text" required placeholder="Контакт для связи">
+      <input type="text" name="contact" required placeholder="Контакт для связи">
       <label>Что нужно вышить?</label>
-      <textarea required placeholder="Опишите задачу: что, на чём, размер, количество"></textarea>
+      <textarea name="message" required placeholder="Опишите задачу: что, на чём, размер, количество"></textarea>
       <button type="submit" class="btn">Отправить заявку</button>
     </form>
   </div>
