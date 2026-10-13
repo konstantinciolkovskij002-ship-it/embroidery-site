@@ -307,6 +307,76 @@
     .hero h1 { font-size: 32px; }
     form { padding: 25px; }
   }
+  /* ===== ЗЕЛЁНАЯ КНОПКА ===== */
+  .btn-green {
+    display: inline-block;
+    background: #16a34a;
+    color: #fff;
+    padding: 12px 26px;
+    border-radius: 50px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 15px;
+    text-decoration: none;
+  }
+  .btn-green:hover {
+    background: #15803d;
+    transform: translateY(-2px);
+  }
+
+  /* ===== МОДАЛЬНОЕ ОКНО ===== */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(43, 29, 18, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 20px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  .modal-overlay.open {
+    display: flex;
+    opacity: 1;
+  }
+  .modal {
+    background: #fff;
+    border-radius: 18px;
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.3);
+    transform: translateY(-20px);
+    transition: transform 0.3s;
+  }
+  .modal-overlay.open .modal {
+    transform: translateY(0);
+  }
+  .modal-close {
+    position: absolute;
+    top: 12px; right: 18px;
+    font-size: 32px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #9a8a7a;
+    line-height: 1;
+    transition: 0.3s;
+  }
+  .modal-close:hover { color: #16a34a; }
+  .modal h3 {
+    font-size: 26px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: var(--dark);
+  }
 </style>
 </head>
 <body>
@@ -457,11 +527,12 @@
   <div class="container">
     <h2 class="section-title">Как заказать</h2>
     <p class="section-sub">Всего 4 простых шага до готовой работы</p>
-    <div class="steps-grid">
+        <div class="steps-grid">
       <div class="step">
         <div class="step-num">1</div>
         <h3>Заявка</h3>
         <p>Оставьте заявку на сайте или напишите мне в мессенджер</p>
+        <button type="button" class="btn-green" onclick="openModal()" style="margin-top: 15px;">Оставить заявку</button>
       </div>
       <div class="step">
         <div class="step-num">2</div>
@@ -509,22 +580,11 @@
 
 <!-- КОНТАКТЫ -->
 <section class="contact" id="contact">
-  <div class="container contact-grid">
-    <div class="contact-info">
-      <h2>Свяжитесь со мной</h2>
-      <p>Оставьте заявку — я свяжусь с вами в течение дня, обсудим детали и рассчитаю стоимость.</p>
-      <div class="contact-line"><span class="ic">📞</span><a href="tel:+79118062717">+7 (911) 806-27-17</a></div>
-      <div class="contact-line"><span class="ic">✉️</span><a href="mailto:888.89@mail.ru">888.89@mail.ru</a></div>
-    </div>
-    <form action="https://formspree.io/f/mzedjjyp" method="POST">
-      <label>Ваше имя</label>
-      <input type="text" name="name" required placeholder="Как к вам обращаться">
-      <label>Телефон или Email</label>
-      <input type="text" name="contact" required placeholder="Контакт для связи">
-      <label>Что нужно вышить?</label>
-      <textarea name="message" required placeholder="Опишите задачу: что, на чём, размер, количество"></textarea>
-      <button type="submit" class="btn">Отправить заявку</button>
-    </form>
+  <div class="container" style="text-align: center; max-width: 700px;">
+    <h2 class="section-title">Свяжитесь со мной</h2>
+    <p class="section-sub">Позвоните или напишите — отвечу в течение дня</p>
+    <div class="contact-line" style="justify-content: center;"><span class="ic">📞</span><a href="tel:+79118062717">+7 (911) 806-27-17</a></div>
+    <div class="contact-line" style="justify-content: center;"><span class="ic">✉️</span><a href="mailto:888.89@mail.ru">888.89@mail.ru</a></div>
   </div>
 </section>
 
@@ -556,7 +616,35 @@
     s.style.transition = 'opacity .8s ease, transform .8s ease';
     observer.observe(s);
   });
-</script>
 
+  // Модальное окно
+  function openModal() {
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+<!-- МОДАЛЬНОЕ ОКНО С ФОРМОЙ -->
+<div class="modal-overlay" id="modalOverlay" onclick="if(event.target === this) closeModal()">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()" aria-label="Закрыть">&times;</button>
+    <h3>Оставить заявку</h3>
+    <form action="https://formspree.io/f/mzedjjyp" method="POST">
+      <label>Ваше имя</label>
+      <input type="text" name="name" required placeholder="Как к вам обращаться">
+      <label>Телефон или Email</label>
+      <input type="text" name="contact" required placeholder="Контакт для связи">
+      <label>Что нужно вышить?</label>
+      <textarea name="message" required placeholder="Опишите задачу: что, на чём, размер, количество"></textarea>
+      <button type="submit" class="btn-green" style="width: 100%;">Отправить заявку</button>
+    </form>
+  </div>
+</div>
 </body>
 </html>
